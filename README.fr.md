@@ -1,5 +1,11 @@
 # Agent Run History
 
+## Nouveau : reçu de transfert
+
+`python3 handoff_receipt.py handoff-demo --lang fr` montre un tour conservé et un transfert incertain ; la démonstration réussie sort avec le code 0. Avec vos captures : `python3 handoff_receipt.py check --events events.json --snapshot document.json --lang fr`. `events.json` contient des objets `{turn_id, operation_id, marker, phase, mode}` ; `phase` vaut `enqueued`, `accepted` ou `failed`, et `mode` vaut `append`, `replace` ou `unknown`. L’instantané Hindsight doit contenir `original_text`. L’outil ne relance jamais une écriture : un marqueur absent après `accepted` est manquant ; après `failed` ou `enqueued`, il est incertain.
+
+**Rapports voisins :** [Hindsight #5286](https://github.com/vectorize-io/hindsight/issues/5286) et [#5251](https://github.com/vectorize-io/hindsight/issues/5251) motivent la conservation des tours et des preuves de transfert. Vous fournissez les événements ; cette version ne lit pas automatiquement les diagnostics Hindsight.
+
 **Vérifiez qu’un document mémoire garde le résultat de chaque exécution de l’agent.**
 
 [English](README.md) · [Français](README.fr.md) · [Español](README.es.md)

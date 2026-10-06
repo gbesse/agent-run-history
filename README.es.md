@@ -1,5 +1,11 @@
 # Agent Run History
 
+## Nuevo: recibo de traspaso
+
+`python3 handoff_receipt.py handoff-demo --lang es` muestra un turno conservado y un traspaso incierto; la demostración correcta sale con código 0. Con capturas guardadas: `python3 handoff_receipt.py check --events events.json --snapshot document.json --lang es`. `events.json` contiene objetos `{turn_id, operation_id, marker, phase, mode}`; `phase` es `enqueued`, `accepted` o `failed`, y `mode` es `append`, `replace` o `unknown`. La instantánea del documento Hindsight debe contener `original_text`. El recibo nunca reintenta una escritura: un marcador ausente tras `accepted` falta; tras `failed` o `enqueued` queda incierto.
+
+**Informes relacionados:** [Hindsight #5286](https://github.com/vectorize-io/hindsight/issues/5286) y [#5251](https://github.com/vectorize-io/hindsight/issues/5251) motivan conservar los turnos y las pruebas de traspaso. Usted proporciona los eventos; esta versión no analiza automáticamente los diagnósticos de Hindsight.
+
 **Compruebe que un documento de memoria conserva el resultado de cada ejecución del agente.**
 
 [English](README.md) · [Français](README.fr.md) · [Español](README.es.md)
