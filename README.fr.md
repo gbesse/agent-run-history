@@ -1,5 +1,11 @@
 # Agent Run History
 
+## Nouveau : reçu du successeur de consolidation
+
+**« Une opération reste rouge alors que son successeur a terminé le même travail. »** Lancez `python3 operation_successor.py demo --lang fr` ; pour vos opérations sauvegardées, utilisez `python3 operation_successor.py check --operations operations.json --lang fr`. Une opération échouée est **couverte** seulement si elle nomme `superseded_by`, si le successeur terminé la nomme dans `supersedes`, si leurs `bank_id` sont identiques et si le successeur couvre tous les `source_ids`. La seule chronologie reste indéterminée. C’est un format de reçu hors ligne, pas un analyseur automatique des diagnostics Hindsight.
+
+**Projets voisins :** [Hindsight #5434](https://github.com/vectorize-io/hindsight/issues/5434) rapporte l’indicateur d’échec persistant ; [Hindsight](https://github.com/vectorize-io/hindsight) gère la consolidation. Ce vérificateur lit des preuves explicites et ne modifie pas Hindsight ; aucune affiliation n’est revendiquée.
+
 ## Nouveau : reçu de transfert
 
 `python3 handoff_receipt.py handoff-demo --lang fr` montre un tour conservé et un transfert incertain ; la démonstration réussie sort avec le code 0. Avec vos captures : `python3 handoff_receipt.py check --events events.json --snapshot document.json --lang fr`. `events.json` contient des objets `{turn_id, operation_id, marker, phase, mode}` ; `phase` vaut `enqueued`, `accepted` ou `failed`, et `mode` vaut `append`, `replace` ou `unknown`. L’instantané Hindsight doit contenir `original_text`. L’outil ne relance jamais une écriture : un marqueur absent après `accepted` est manquant ; après `failed` ou `enqueued`, il est incertain.
