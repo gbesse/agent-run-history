@@ -1,5 +1,11 @@
 # Agent Run History
 
+## Nuevo: recibo del sucesor de consolidación
+
+**« Una operación sigue en rojo aunque su sucesora terminó el mismo trabajo. »** Ejecute `python3 operation_successor.py demo --lang es`; para operaciones guardadas use `python3 operation_successor.py check --operations operations.json --lang es`. Una operación fallida está **cubierta** solo si indica `superseded_by`, el sucesor completado la indica en `supersedes`, ambos tienen el mismo `bank_id` y el sucesor cubre todos los `source_ids`. La mera cronología es indeterminada. Este es un formato de recibo sin conexión, no un analizador automático de diagnósticos Hindsight.
+
+**Proyectos relacionados:** [Hindsight #5434](https://github.com/vectorize-io/hindsight/issues/5434) informa del indicador de fallo persistente; [Hindsight](https://github.com/vectorize-io/hindsight) realiza la consolidación. El verificador lee pruebas explícitas y no modifica Hindsight ni afirma afiliación.
+
 ## Nuevo: recibo de traspaso
 
 `python3 handoff_receipt.py handoff-demo --lang es` muestra un turno conservado y un traspaso incierto; la demostración correcta sale con código 0. Con capturas guardadas: `python3 handoff_receipt.py check --events events.json --snapshot document.json --lang es`. `events.json` contiene objetos `{turn_id, operation_id, marker, phase, mode}`; `phase` es `enqueued`, `accepted` o `failed`, y `mode` es `append`, `replace` o `unknown`. La instantánea del documento Hindsight debe contener `original_text`. El recibo nunca reintenta una escritura: un marcador ausente tras `accepted` falta; tras `failed` o `enqueued` queda incierto.

@@ -1,5 +1,11 @@
 # Agent Run History
 
+## New: consolidation successor receipt
+
+**“A failed operation remains red even though its successor finished the same work.”** Run `python3 operation_successor.py demo --lang en`; for saved operations use `python3 operation_successor.py check --operations operations.json --lang en`. A failed operation is **covered** only when it names `superseded_by`, the completed successor names it in `supersedes`, both have the same `bank_id`, and the successor covers every `source_ids` value. Timing alone is inconclusive. This is an offline receipt format, not an automatic Hindsight diagnostics parser.
+
+**Related projects:** [Hindsight #5434](https://github.com/vectorize-io/hindsight/issues/5434) reports the stranded failure indicator; [Hindsight](https://github.com/vectorize-io/hindsight) owns consolidation. This checker reads explicitly saved evidence and does not alter Hindsight or claim affiliation.
+
 ## New: handoff receipt
 
 `python3 handoff_receipt.py handoff-demo --lang en` shows one retained turn and one uncertain handoff; a successful demonstration exits 0. For saved evidence run `python3 handoff_receipt.py check --events events.json --snapshot document.json --lang en`. `events.json` is an array of `{turn_id, operation_id, marker, phase, mode}` where `phase` is `enqueued`, `accepted` or `failed` and `mode` is `append`, `replace` or `unknown`. The Hindsight document snapshot must contain `original_text`. The receipt never retries a write: an absent marker after `accepted` is missing; after `failed` or `enqueued` it is uncertain.
